@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev" : "nodemon ai-ticket-assistant/index.js",
-    "start" : "node ai-ticket-assistant/index.js"
+    "dev": "nodemon ai-ticket-assistant/index.js",
+    "start": "node ai-ticket-assistant/index.js"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +23,7 @@
     "express": "^5.1.0",
     "inngest": "^3.38.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.16.0",
     "mongoose": "^8.15.1",
     "nodemailer": "^7.0.3"
   }
