@@ -20,8 +20,10 @@ export const onUserSignup = Inngest.createFunction(
                 Thanks for signing up. We are glad to have you onboard`
                 await sendMail(user.email , subject , message)
             })
-        }catch{
-
+            return {success:true}
+        }catch(error){
+            console.error('Error running step' , error.message);
+            return {success:false}
         }
     }
 )
