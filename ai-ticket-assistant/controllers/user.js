@@ -43,7 +43,7 @@ export const login = async(req , res)=>{
 } 
 export const logout = async(req , res)=>{
     try{
-        const token = req.headers.authorization.split(" ")[1]
+        const token = req.headers.authorization?.split(" ")[1]
         if(!token) return res.status(401).json({error : "Unauthorized"})
         jwt.verify(token , process.env.JWT_SECRET , (err , decoded)=>{
             if(err) return res.status(401).json({error : "Unauthorized"})
@@ -51,5 +51,33 @@ export const logout = async(req , res)=>{
     res.json({message : "Logout Successfully"})
     }catch{ 
         res.status(500).json({error : "Logout Failed" , details : error.message})
+    }
+}
+export const updateUser = async(req , res)=>{
+    const {skills = [] , role , email} = req.body
+    try{
+        if(req.user?.role !== "admin"){
+            return res.status(403).json({ error : "Forbidden"})
+        }
+        const user  = await User.findOne({email})
+        if(!user) return res.status(401).json({error : "User not found"});
+        await User.updateOne(
+            {email},
+            {skills : skills.length ? skills : user.skills , role}
+        )
+        return res.json({message : "User updated succesfully"})
+    }catch(error){
+        res.status(500).json({error : "Update Failed" , details : error.message});
+    }
+}
+
+export const getUser = async (req , res)=>{
+    try{
+        if(req.user.role !== "admin"){
+            return res.status(403).json({error : "Forbidden"})
+        }
+        
+    }catch{
+
     }
 }
