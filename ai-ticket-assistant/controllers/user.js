@@ -76,8 +76,9 @@ export const getUser = async (req , res)=>{
         if(req.user.role !== "admin"){
             return res.status(403).json({error : "Forbidden"})
         }
-        
+        const users = await User.find().select("-password")
+        return res.json(users)
     }catch{
-
+        res.status(500).json({error : "Update Failed to get users.", details : error.message});
     }
 }
